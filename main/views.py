@@ -1,7 +1,6 @@
 from rest_framework import  generics, viewsets, mixins, filters
 from django_filters.rest_framework import DjangoFilterBackend
 import django_filters
-from drf_cached_instances.mixins import CachedViewMixin
 from main.serializers import UserSerializer, ArticleSerializer, CommentSerializer
 from main.models import *
 
@@ -10,14 +9,14 @@ from main.models import *
 # =============================================================================
 
 
-class UserCreateViewSet(CachedViewMixin, mixins.CreateModelMixin,
+class UserCreateViewSet(mixins.CreateModelMixin,
                         mixins.UpdateModelMixin,
                         viewsets.GenericViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
-class UserArticleList(generics.ListAPIView, CachedViewMixin):
+class UserArticleList(generics.ListAPIView):
     model = Article
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
@@ -47,7 +46,7 @@ class ListUserArticleViewSet(mixins.ListModelMixin,
                              mixins.CreateModelMixin,
                              mixins.UpdateModelMixin,
                              mixins.RetrieveModelMixin,
-                             viewsets.GenericViewSet, CachedViewMixin):
+                             viewsets.GenericViewSet):
 
     filter_backends = (DjangoFilterBackend, filters.OrderingFilter,)
     filter_class = ArticleFilter
@@ -66,14 +65,14 @@ class ListUserArticleViewSet(mixins.ListModelMixin,
 # =============================================================================
 
 
-class CommentViewSet(CachedViewMixin, mixins.CreateModelMixin,
+class CommentViewSet(mixins.CreateModelMixin,
                      mixins.UpdateModelMixin,
                      viewsets.GenericViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
 
-class CommentList(generics.ListAPIView, CachedViewMixin):
+class CommentList(generics.ListAPIView):
     model = Comment
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
