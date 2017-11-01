@@ -1,0 +1,14 @@
+# Data utility
+django
+django_extensions
+djangorestframework
+markdown
+django-filter
+# django-tastypie
+# django-cors-headers
+# django-dbbackup
+tqdm
+dateparser
+django-mathfilters
+django-compressor
+requests
